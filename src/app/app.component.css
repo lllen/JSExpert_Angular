@@ -1,0 +1,12 @@
+.example-icon {
+    padding: 0 5px;
+  }
+  
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.colored{
+    background-color: #3d3e3f;
+    color: white;
+}

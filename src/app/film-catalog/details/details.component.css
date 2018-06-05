@@ -1,0 +1,7 @@
+.description-text {
+    line-height: 17px;
+    text-align: left;
+    height: 100px;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}

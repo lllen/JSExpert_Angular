@@ -1,0 +1,26 @@
+<mat-card class="menu-card">
+    
+    <mat-toolbar class="menu-toolbar">
+        <mat-toolbar-row>
+          <span>В улюблені добавлено {{n}} фільмів</span>
+          <span class="example-spacer"></span>
+            <div>
+              <mat-form-field>
+                <mat-select [(value)]="selection" placeholder="Сортування">
+                  <mat-option value="ASC" (click)="sortASC()"> А-Я</mat-option>
+                  <mat-option value="DESC" (click)="sortDESC()"> Я-А</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+</mat-card>
+
+
+  <mat-grid-list cols="3" rowHeight="700px">
+      <mat-grid-tile  class="card"  colspan="1" *ngFor="let film of films">
+        <film-item [filmInfo]="film"  (favorite)="setFavoriteNumber()" (unFavorite)="unsetFavorite()"></film-item>
+      </mat-grid-tile>
+  </mat-grid-list> 
+
