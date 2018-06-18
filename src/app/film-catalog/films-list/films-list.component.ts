@@ -15,7 +15,7 @@ export class FilmsListComponent implements OnInit {
   n: number;
   found;
 
-  films : Film[] = [];
+  films;
   searchedValue: string;
   sortOption : string;
   popularFilms;
@@ -29,6 +29,7 @@ export class FilmsListComponent implements OnInit {
   }
 
   ngOnInit() { 
+    this.films = new Array (Film);
     this.filmsService.getPopularFilms().subscribe(
       (filmList: any) => {
         this.initFilms(filmList);
@@ -40,17 +41,23 @@ export class FilmsListComponent implements OnInit {
     }
 
   initFilms(films){
-    let temp = films.results;
-    for(let i = 0; i < temp.length; i++){
-      // this.films[i].title = temp[i]['title'];
-      console.log(temp[i]['title']);
-      this.films[i]['releaseDate']  = temp[i]['release_date'];
-      this.films[i]['voteAverage'] = temp[i]['vote_average'];
-      this.films[i]['overview'] = temp[i]['overview'];
-      this.films[i]['poster'] = `${this.filmsService.midImgPath}${temp[i]['poster_path']}`;
-    }
+    films.results.forEach(film => {
+      this.films.push({
+        title: film.title,
+        releaseDate: film.release_date,
+        voteAverage: film.vote_average,
+        overview: film.overview,
+        poster: `${this.filmsService.midImgPath}${film['poster_path']}`
+      });
+    });
     console.log(this.films);
   }
+
+  // makeImageUrls(){
+  //   this.films.forEach(film => {
+  //     film.poster_path = `${this.filmsService.midImgPath}${film.poster_path}`;
+  //   });
+  // }
 
   sortByOption(){
     if(this.sortOption === "Фильмы"){
