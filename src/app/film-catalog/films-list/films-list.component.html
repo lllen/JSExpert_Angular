@@ -1,26 +1,37 @@
 <mat-card class="menu-card">
-    
     <mat-toolbar class="menu-toolbar">
         <mat-toolbar-row>
-          <span>В улюблені добавлено {{n}} фільмів</span>
+          <!-- <span>В улюблені добавлено {{n}} фільмів</span> -->
           <span class="example-spacer"></span>
             <div>
               <mat-form-field>
-                <mat-select [(value)]="selection" placeholder="Сортування">
-                  <mat-option value="ASC" (click)="sortASC()"> А-Я</mat-option>
-                  <mat-option value="DESC" (click)="sortDESC()"> Я-А</mat-option>
+                <mat-select [(value)]="sortOption" (selectionChange)="sortByOption()" placeholder="Сортування">
+                  <mat-option *ngFor="let option of sortOptions">
+                    {{option.description}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
+            <span class="example-spacer"></span>
+            <div>
+                <mat-form-field appearance="legacy">
+                  <input matInput  [(ngModel)]="searchedValue" (ngModelChange)="checkInput($event)" placeholder="Пошук">
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
         </mat-toolbar-row>
     </mat-toolbar>
-
 </mat-card>
 
-
-  <mat-grid-list cols="3" rowHeight="700px">
-      <mat-grid-tile  class="card"  colspan="1" *ngFor="let film of films">
-        <film-item [filmInfo]="film"  (favorite)="setFavoriteNumber()" (unFavorite)="unsetFavorite()"></film-item>
+<mat-grid-list cols="3" rowHeight="700px">
+  <div *ngFor="let film of films">
+    <div>
+      <mat-grid-tile  class="card"  colspan="1">
+        <film-item [filmInfo]="film"  (favorite)="setFavoriteNumber($event)"></film-item>
       </mat-grid-tile>
-  </mat-grid-list> 
+    </div>
+  </div>
+</mat-grid-list> 
+
+<button class="more_button" mat-button (click)="getNextPage()"><mat-icon class="more_button-item">forward_5</mat-icon></button>
 

@@ -15,3 +15,23 @@
   flex: 1 1 auto;
 }
 
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.more_button {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  flex-direction: row;
+}
+
+.more_button-item {
+  text-align: center;
+}

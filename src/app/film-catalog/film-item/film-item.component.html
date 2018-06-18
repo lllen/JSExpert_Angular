@@ -1,4 +1,4 @@
-<mat-card class="card-item"> 
+<mat-card  class="card-item"> 
   <mat-card-header>
     <mat-card-title class="card-title">{{film.name}}</mat-card-title>
   </mat-card-header>
@@ -8,6 +8,6 @@
   </mat-card-content>
   <mat-card-actions class="card-navigation">
       <button mat-button>Відкрити</button>
-      <button mat-button [class.red]="isPressed" (click)="setAsFavorite()" value="{{false}}"><mat-icon>favorite_border</mat-icon></button>
+      <button mat-button [ngClass]="{'red' : isFavorite()}" (click)="setAsFavorite()" value="{{film.isFavorite}}"><mat-icon>favorite_border</mat-icon></button>
     </mat-card-actions>
 </mat-card>

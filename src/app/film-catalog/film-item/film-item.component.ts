@@ -10,24 +10,27 @@ export class FilmItemComponent implements OnInit {
   isPressed: boolean;
   value: boolean;
   @Input('filmInfo') film: object;
-  @Output() favorite = new EventEmitter<number>();
-  @Output() unFavorite = new EventEmitter<number>();
+  @Output() favorite = new EventEmitter<boolean>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  isFavorite(){
+    return this.film['isFavorite'] ? true : false;
+  }
+
   setAsFavorite(){
-    if(!this.value){
-      this.favorite.emit();
-      this.value = true;
-      this.isPressed = true;
+    if(!this.film['isFavorite']){
+      this.film['isFavorite'] = true;
+      this.favorite.emit(true);
     } else{
-      this.unFavorite.emit();
-      this.value = false;
-      this.isPressed = false;
+      this.film['isFavorite'] = false;
+      this.favorite.emit(true);
     }
   }
+
+ 
 
 }

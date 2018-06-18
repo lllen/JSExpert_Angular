@@ -2,6 +2,7 @@
     line-height: 17px;
     text-align: left;
     height: 100px;
+    width: 250px;
     overflow: hidden; 
     text-overflow: ellipsis;
 }
