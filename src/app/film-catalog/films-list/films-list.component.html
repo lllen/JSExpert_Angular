@@ -2,10 +2,9 @@
     <mat-toolbar class="menu-toolbar">
         <mat-toolbar-row>
           <!-- <span>В улюблені добавлено {{n}} фільмів</span> -->
-          <span class="example-spacer"></span>
             <div>
               <mat-form-field>
-                <mat-select [(value)]="selectedOption" (selectionChange)="getPage()" placeholder="Сортування">
+                <mat-select [(value)]="selectedOption" (selectionChange)="getCards()" placeholder="Отобразить">
                   <mat-option *ngFor="let option of Options" [value]="option.description">
                     {{option.description}}
                   </mat-option>
@@ -13,12 +12,8 @@
               </mat-form-field>
             </div>
             <span class="example-spacer"></span>
-            <div>
-                <mat-form-field appearance="legacy">
-                  <input matInput  [(ngModel)]="searchedValue" (ngModelChange)="checkInput($event)" placeholder="Пошук">
-                  <mat-icon matSuffix>search</mat-icon>
-                </mat-form-field>
-            </div>
+            <span class="example-spacer"></span>
+            <app-search></app-search>
         </mat-toolbar-row>
     </mat-toolbar>
 </mat-card>

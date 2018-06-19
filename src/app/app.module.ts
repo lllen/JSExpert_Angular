@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FilmCatalogModule } from './film-catalog/film-catalog.module';
+import { ActorCatalogModule } from './actor-catalog/actor-catalog.module';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -13,11 +14,13 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
-import { ActorCatalogModule } from './actor-catalog/actor-catalog.module';
+import { SearchComponent } from './search/search.component';
+import { SearchModule } from './search/search.module';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { ActorCatalogModule } from './actor-catalog/actor-catalog.module';
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    SearchModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,7 +8,7 @@ import { Actor } from '../../actor';
 })
 export class ActorCardComponent implements OnInit {
 
-  @Input("actorInfo") actor;
+  @Input("actorInfo") actor : Actor;
 
   constructor() { }
 

@@ -3,18 +3,19 @@ import { ActorService } from '../actor.service';
 import { Actor } from '../../actor';
 
 @Component({
-  selector: 'app-actors',
+  selector: 'actors',
   templateUrl: './actors.component.html',
   styleUrls: ['./actors.component.css']
 })
 export class ActorsComponent implements OnInit {
 
+  currentPage : number = 1;
   actors : Actor[] = [];
 
   constructor(public actorService: ActorService) { }
 
   ngOnInit() {
-    this.actorService.getActors().subscribe(
+    this.actorService.getActors(this.currentPage).subscribe(
       (actorsList: any) => {
         this.initActors(actorsList);
       },
@@ -33,6 +34,16 @@ export class ActorsComponent implements OnInit {
       });
     });
     console.log(this.actors[1]);
+  }
+
+  getNextPage(){
+    this.actorService.getActors(++this.currentPage).subscribe(
+      (actorsList: any) => {
+        this.initActors(actorsList);
+      },
+      err => {
+        console.log("error");
+      })
   }
 
 }

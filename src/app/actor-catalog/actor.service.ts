@@ -9,8 +9,6 @@ import { HttpClient } from '@angular/common/http';
 export class ActorService {
   apiUrl: string = "https://api.themoviedb.org/3"
   apiKey: string = '0994e7679a856150aadcecf7de489bce'
-  movieUrl: string = `${this.apiUrl}/movie`
-  searchUrl: string = `${this.apiUrl}/search`
   personUrl: string = `${this.apiUrl}/person`
   params: string = `&api_key=${this.apiKey}&language=ru-RU`
 

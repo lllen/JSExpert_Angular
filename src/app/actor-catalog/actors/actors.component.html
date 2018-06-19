@@ -1,3 +1,23 @@
+<mat-card class="menu-card">
+  <mat-toolbar class="menu-toolbar">
+      <mat-toolbar-row>
+        <!-- <span>В улюблені добавлено {{n}} фільмів</span> -->
+          <div>
+            <mat-form-field>
+              <mat-select [(value)]="selectedOption" (selectionChange)="getCards()" placeholder="Отобразить">
+                <mat-option *ngFor="let option of Options" [value]="option.description">
+                  {{option.description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <span class="example-spacer"></span>
+          <span class="example-spacer"></span>
+          <app-search></app-search>
+      </mat-toolbar-row>
+  </mat-toolbar>
+</mat-card>
+
 
 <mat-grid-list cols="4" rowHeight="700px">
   <div *ngFor="let actor of actors">

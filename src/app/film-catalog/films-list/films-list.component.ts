@@ -4,21 +4,19 @@ import { FilmService } from '../film.service';
 import { Film } from '../../film';
 import { element } from 'protractor';
 import { Router }  from '@angular/router';
+import { Options } from 'selenium-webdriver/safari';
 
 @Component({
-  selector: '.films',
+  selector: 'films',
   templateUrl: './films-list.component.html',
   styleUrls: ['./films-list.component.css']
 })
 export class FilmsListComponent implements OnInit {
 
   currentPage : number = 1;
-  n: number;
-  found;
-
   films : Film[] = [];
   searchedValue: string;
-  selectedOption: any;
+  selectedOption: any = "Фильмы";
 
   Options = [
     { description: 'Фильмы' },
@@ -30,7 +28,7 @@ export class FilmsListComponent implements OnInit {
   }
 
   ngOnInit() { 
-    this.filmsService.getPopularFilms().subscribe(
+    this.filmsService.getPopularFilms(this.currentPage).subscribe(
       (filmList: any) => {
         this.initFilms(filmList);
       },
@@ -52,7 +50,7 @@ export class FilmsListComponent implements OnInit {
     console.log(this.films);
   }
 
-  getPage(){
+  getCards(){
     if(this.selectedOption === "Фильмы"){
       this.changeLinkFilms();
     }else if(this.selectedOption === "Актеры"){
@@ -67,6 +65,17 @@ export class FilmsListComponent implements OnInit {
   changeLinkActors(){
     this.router.navigate(['/actors']);
   }
+
+  getNextPage(){
+    this.filmsService.getPopularFilms(++this.currentPage).subscribe(
+      (filmList: any) => {
+        this.initFilms(filmList);
+      },
+      err => {
+        console.log("error");
+      })
+  }
+
 
   // checkInput($event) {
     //   if($event.length > 3) {
