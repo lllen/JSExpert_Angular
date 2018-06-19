@@ -13,6 +13,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
+import { ActorCatalogModule } from './actor-catalog/actor-catalog.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MatInputModule } from '@angular/material';
     BrowserModule,
     AppRoutingModule,
     FilmCatalogModule,
+    ActorCatalogModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,

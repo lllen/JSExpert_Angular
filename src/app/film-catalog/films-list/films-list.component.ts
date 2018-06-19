@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, ViewChildren, QueryList, Input } from '@angular/core';
 //import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { FilmService } from '../film.service';
 import { Film } from '../../film';
 import { element } from 'protractor';
+import { Router }  from '@angular/router';
 
 @Component({
   selector: '.films',
@@ -15,21 +16,20 @@ export class FilmsListComponent implements OnInit {
   n: number;
   found;
 
-  films;
+  films : Film[] = [];
   searchedValue: string;
-  sortOption : string;
-  popularFilms;
-  
-  sortOptions =  [
+  selectedOption: any;
+
+  Options = [
     { description: 'Фильмы' },
     { description: 'Актеры' }
   ];
 
-  constructor(public filmsService: FilmService) { 
+
+  constructor(public filmsService: FilmService,  public router: Router) { 
   }
 
   ngOnInit() { 
-    this.films = new Array (Film);
     this.filmsService.getPopularFilms().subscribe(
       (filmList: any) => {
         this.initFilms(filmList);
@@ -37,7 +37,6 @@ export class FilmsListComponent implements OnInit {
       err => {
         console.log("error");
       })
-    
     }
 
   initFilms(films){
@@ -53,22 +52,21 @@ export class FilmsListComponent implements OnInit {
     console.log(this.films);
   }
 
-  // makeImageUrls(){
-  //   this.films.forEach(film => {
-  //     film.poster_path = `${this.filmsService.midImgPath}${film.poster_path}`;
-  //   });
-  // }
-
-  sortByOption(){
-    if(this.sortOption === "Фильмы"){
-
-    }else if(this.sortOption === "Актеры"){
-
+  getPage(){
+    if(this.selectedOption === "Фильмы"){
+      this.changeLinkFilms();
+    }else if(this.selectedOption === "Актеры"){
+      this.changeLinkActors();
     }
   }
 
+  changeLinkFilms(){
+    this.router.navigate(['/films']);
+  }
 
-
+  changeLinkActors(){
+    this.router.navigate(['/actors']);
+  }
 
   // checkInput($event) {
     //   if($event.length > 3) {

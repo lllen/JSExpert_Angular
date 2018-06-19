@@ -2,7 +2,7 @@
   <mat-card-header>
     <mat-card-title class="card-title">{{film.title}}</mat-card-title>
   </mat-card-header>
-  <img mat-card-image src="{{film.poster_path}}" alt="{{film.title}}" class="card-img-item">
+  <img mat-card-image src="{{film.poster}}" alt="{{film.title}}" class="card-img-item">
   <mat-card-content>
     <details-inner [filmDescription]="film.overview"></details-inner>
   </mat-card-content>

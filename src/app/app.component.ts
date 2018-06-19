@@ -9,7 +9,7 @@ export class AppComponent {
 
   links: object[] = [
     { path: '/main', label: 'Головна', active: 'button-active', icon: 'home'},
-    { path: '/films', label: 'Фільми', active: 'button-active', icon: 'video_library'}
+    { path: '/films', label: 'Библиотека', active: 'button-active', icon: 'video_library'}
   ];
 
 }

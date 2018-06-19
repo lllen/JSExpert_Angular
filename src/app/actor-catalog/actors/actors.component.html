@@ -1,0 +1,12 @@
+
+<mat-grid-list cols="4" rowHeight="700px">
+  <div *ngFor="let actor of actors">
+    <div>
+      <mat-grid-tile  class="card"  colspan="1">
+        <actor-card [actorInfo]="actor"  (favorite)="setFavoriteActor($event)"></actor-card>
+      </mat-grid-tile>
+    </div>
+  </div>
+</mat-grid-list> 
+
+<button class="more_button" mat-button (click)="getNextPage()"><mat-icon class="more_button-item">forward_5</mat-icon></button> 

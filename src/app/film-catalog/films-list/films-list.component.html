@@ -5,8 +5,8 @@
           <span class="example-spacer"></span>
             <div>
               <mat-form-field>
-                <mat-select [(value)]="sortOption" (selectionChange)="sortByOption()" placeholder="Сортування">
-                  <mat-option *ngFor="let option of sortOptions">
+                <mat-select [(value)]="selectedOption" (selectionChange)="getPage()" placeholder="Сортування">
+                  <mat-option *ngFor="let option of Options" [value]="option.description">
                     {{option.description}}
                   </mat-option>
                 </mat-select>
