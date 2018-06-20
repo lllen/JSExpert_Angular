@@ -26,12 +26,7 @@
   }
   
   .more_button {
-    display: inline-flex;
-    align-items: center;
-    align-self: center;
-    flex-direction: row;
-  }
-  
-  .more_button-item {
-    text-align: center;
+    left: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
   }

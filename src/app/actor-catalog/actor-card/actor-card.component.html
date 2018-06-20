@@ -1,10 +1,10 @@
 <mat-card  class="card-item"> 
   <mat-card-header>
-    <mat-card-title>{{actor.name}}</mat-card-title>
+    <mat-card-title><h3>{{actor.name}}</h3></mat-card-title>
   </mat-card-header>
   <img mat-card-image src="{{actor.image}}" alt="{{actor.name}}" class="card-img-item">
   <mat-card-actions class="card-navigation">
-      <button mat-button>Відкрити</button>
+      <button mat-button>Детальнее</button>
       <button mat-button (click)="setAsFavorite()"><mat-icon>favorite_border</mat-icon></button>
     </mat-card-actions>
 </mat-card>

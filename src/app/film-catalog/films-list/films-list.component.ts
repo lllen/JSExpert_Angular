@@ -23,7 +23,6 @@ export class FilmsListComponent implements OnInit {
     { description: 'Актеры' }
   ];
 
-
   constructor(public filmsService: FilmService,  public router: Router) { 
   }
 
@@ -67,7 +66,8 @@ export class FilmsListComponent implements OnInit {
   }
 
   getNextPage(){
-    this.filmsService.getPopularFilms(++this.currentPage).subscribe(
+    this.currentPage++;
+    this.filmsService.getPopularFilms(this.currentPage).subscribe(
       (filmList: any) => {
         this.initFilms(filmList);
       },

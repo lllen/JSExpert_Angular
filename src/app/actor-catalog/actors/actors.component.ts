@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActorService } from '../actor.service';
 import { Actor } from '../../actor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'actors',
@@ -11,8 +12,14 @@ export class ActorsComponent implements OnInit {
 
   currentPage : number = 1;
   actors : Actor[] = [];
+  selectedOption: any = "Актеры";
 
-  constructor(public actorService: ActorService) { }
+  Options = [
+    { description: 'Фильмы' },
+    { description: 'Актеры' }
+  ];
+
+  constructor(public actorService: ActorService, public router: Router) { }
 
   ngOnInit() {
     this.actorService.getActors(this.currentPage).subscribe(
@@ -44,6 +51,22 @@ export class ActorsComponent implements OnInit {
       err => {
         console.log("error");
       })
+  }
+
+  getCards(){
+    if(this.selectedOption === "Фильмы"){
+      this.changeLinkFilms();
+    }else if(this.selectedOption === "Актеры"){
+      this.changeLinkActors();
+    }
+  }
+
+  changeLinkFilms(){
+    this.router.navigate(['/films']);
+  }
+
+  changeLinkActors(){
+    this.router.navigate(['/actors']);
   }
 
 }

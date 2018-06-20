@@ -16,6 +16,7 @@ import { MainComponent } from './main/main.component';
 import { FilmsListComponent } from './films-list/films-list.component';
 import { DetailsComponent } from './details/details.component';
 import { FilmItemComponent } from './film-item/film-item.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -37,6 +38,6 @@ import { FilmItemComponent } from './film-item/film-item.component';
     FilmsListComponent,
     DetailsComponent,
     FilmItemComponent
-  ]
+    ]
 })
 export class FilmCatalogModule { }
