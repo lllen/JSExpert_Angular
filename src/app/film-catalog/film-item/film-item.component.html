@@ -7,7 +7,7 @@
     <details-inner [filmDescription]="film.overview"></details-inner>
   </mat-card-content>
   <mat-card-actions class="card-navigation">
-      <button mat-button>Відкрити</button>
+      <button mat-button>Открыть</button>
       <button mat-button [ngClass]="{'red' : isFavorite()}" (click)="setAsFavorite()" value="{{film.isFavorite}}"><mat-icon>favorite_border</mat-icon></button>
     </mat-card-actions>
 </mat-card>

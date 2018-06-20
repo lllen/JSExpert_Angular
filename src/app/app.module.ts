@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { SearchComponent } from './search/search.component';
 import { SearchModule } from './search/search.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -33,8 +34,7 @@ import { SearchModule } from './search/search.module';
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatInputModule,
-    SearchModule
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

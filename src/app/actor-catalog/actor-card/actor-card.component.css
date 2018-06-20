@@ -1,0 +1,29 @@
+
+.card-item{
+    flex-direction: row;
+    width: 250px;
+  }
+  
+  .card-img-item{
+    height: 400px;
+  }
+  
+  .card-title{
+    font-size: 3vh;
+    white-space: nowrap; 
+    width: 250px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .card-navigation{
+    flex-direction: row;
+  }
+  
+  .red{
+    background-color: #ef4f4f;
+  }
+  
+   
+    
+    
