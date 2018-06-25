@@ -16,6 +16,7 @@ export class FilmsListComponent implements OnInit {
   currentPage : number = 1;
   films : Film[] = [];
   searchedValue: string;
+  activeSpinner : boolean = true;
   selectedOption: any = "Фильмы";
 
   Options = [
@@ -27,16 +28,17 @@ export class FilmsListComponent implements OnInit {
   }
 
   ngOnInit() { 
+    console.log("ngOnInit");
     this.filmsService.getPopularFilms(this.currentPage).subscribe(
       (filmList: any) => {
-        this.initFilms(filmList);
+        this.initFilms(filmList); 
       },
       err => {
         console.log("error");
       })
     }
 
-  initFilms(films){
+  initFilms(films):void{
     films.results.forEach(film => {
       this.films.push({
         title: film.title,
@@ -46,10 +48,11 @@ export class FilmsListComponent implements OnInit {
         poster: `${this.filmsService.midImgPath}${film['poster_path']}`
       });
     });
+    this.activeSpinner = false;
     console.log(this.films);
   }
 
-  getCards(){
+  getCards():void{
     if(this.selectedOption === "Фильмы"){
       this.changeLinkFilms();
     }else if(this.selectedOption === "Актеры"){
@@ -57,15 +60,15 @@ export class FilmsListComponent implements OnInit {
     }
   }
 
-  changeLinkFilms(){
+  changeLinkFilms():void{
     this.router.navigate(['/films']);
   }
 
-  changeLinkActors(){
+  changeLinkActors():void{
     this.router.navigate(['/actors']);
   }
 
-  getNextPage(){
+  getNextPage():void{
     this.currentPage++;
     this.filmsService.getPopularFilms(this.currentPage).subscribe(
       (filmList: any) => {
@@ -75,7 +78,6 @@ export class FilmsListComponent implements OnInit {
         console.log("error");
       })
   }
-
 
   // checkInput($event) {
     //   if($event.length > 3) {
