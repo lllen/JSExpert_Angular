@@ -5,6 +5,9 @@ import { Film } from '../../film';
 import { element } from 'protractor';
 import { Router }  from '@angular/router';
 import { Options } from 'selenium-webdriver/safari';
+import { SearchComponent } from '../../search/search.component';
+
+
 
 @Component({
   selector: 'films',
@@ -18,7 +21,9 @@ export class FilmsListComponent implements OnInit {
   searchedValue: string;
   activeSpinner : boolean = true;
   selectedOption: any = "Фильмы";
-
+  // @Input() searchValue: string;
+  searchValue:string; 
+  
   Options = [
     { description: 'Фильмы' },
     { description: 'Актеры' }
@@ -37,6 +42,10 @@ export class FilmsListComponent implements OnInit {
         console.log("error");
       })
     }
+
+  ngOnChanges(){
+    console.log(this.searchValue);
+  }
 
   initFilms(films):void{
     films.results.forEach(film => {

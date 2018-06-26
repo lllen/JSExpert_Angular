@@ -1,6 +1,7 @@
+
 <div class="search-position">
   <mat-form-field appearance="legacy">
-    <input matInput placeholder="Поиск">
+    <input matInput [ngModel]="searchValue" [searchValue]="searchValue" placeholder="Поиск">
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 </div>
