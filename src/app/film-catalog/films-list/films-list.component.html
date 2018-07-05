@@ -4,31 +4,28 @@
           <!-- <span>В улюблені добавлено {{n}} фільмів</span> -->
             <div>
               <mat-form-field>
-                <mat-select [(value)]="selectedOption" (selectionChange)="getCards()" placeholder="Отобразить">
+                <mat-select [(ngModel)]="selectedOption" (selectionChange)="getCards()" placeholder="Отобразить">
                   <mat-option *ngFor="let option of Options" [value]="option.description">
                     {{option.description}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-            <span class="example-spacer"></span>
-            <span class="example-spacer"></span>
+            <app-search (search)="checkSearchValue($event)"></app-search>
         </mat-toolbar-row>
     </mat-toolbar>
 </mat-card>
 
-<app-search></app-search>
+
+<!-- <input matInput [(ngModel)]="temp"> -->
 
 <mat-spinner class="spinner-position" *ngIf="activeSpinner"></mat-spinner>
-<mat-grid-list cols="3" rowHeight="700px">
+
+<div class="film-card">
   <div *ngFor="let film of films">
-    <div>
-      <mat-grid-tile  class="card"  colspan="1">
-        <film-item [filmInfo]="film"  (favorite)="setFavoriteNumber($event)"></film-item>
-      </mat-grid-tile>
-    </div>
+      <film-item [filmInfo]="film"  (favorite)="setFavoriteNumber($event)"></film-item>
   </div>
-</mat-grid-list> 
+</div>
 
 <button class="more_button" mat-button (click)="getNextPage()">Показать ещё <mat-icon class="more_button-item">add</mat-icon></button>
 

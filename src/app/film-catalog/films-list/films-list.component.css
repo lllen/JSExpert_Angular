@@ -1,6 +1,8 @@
 
- .card {
-  display: flex;   
+ .film-card {
+  display: flex; 
+  flex-wrap: wrap;
+  margin:  2% 2% 2% 10%;
 }
 
 .menu-card {

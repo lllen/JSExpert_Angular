@@ -17,13 +17,38 @@
   }
   
   .card-navigation{
+    display: flex;
     flex-direction: row;
+    justify-content: space-around;
   }
   
   .red{
-    background-color: #ef4f4f;
+    color: #ef4f4f;
   }
   
-   
-    
-    
+  .example-header-image {
+    background-image: url('https://cdn4.iconfinder.com/data/icons/user-icons-5/100/user-21-512.png');
+    background-size: cover;
+  }
+  
+  .popularity-card{
+    display: flex;
+    justify-content: space-between;
+		position: absolute;
+    top: 15%;
+    right: 0%;
+		background: black;
+		padding: 6px;
+    color: #f3f78f;
+    opacity: 0.8;
+  }
+
+  .text-size{
+    font-weight: 600;
+    margin-top: 4%;
+    margin-left: 2%;
+  }
+  
+  .fav-button_position{
+    margin-top: 2%;
+  }

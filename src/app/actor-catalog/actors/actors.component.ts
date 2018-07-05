@@ -13,7 +13,7 @@ export class ActorsComponent implements OnInit {
   currentPage : number = 1;
   actors : Actor[] = [];
   selectedOption: any = "Актеры";
-
+  activeSpinner: boolean = true;
   Options = [
     { description: 'Фильмы' },
     { description: 'Актеры' }
@@ -36,10 +36,11 @@ export class ActorsComponent implements OnInit {
     actorsList.results.forEach(actor => {
       this.actors.push({
         name: actor.name,
-        popularity: actor.popularity,
+        popularity: actor.popularity.toFixed(1),
         image: `${this.actorService.smallImgPath}${actor.profile_path}`
       });
     });
+    this.activeSpinner = false;
     console.log(this.actors[1]);
   }
 
@@ -67,6 +68,16 @@ export class ActorsComponent implements OnInit {
 
   changeLinkActors(){
     this.router.navigate(['/actors']);
+  }
+
+  checkSearchValue(actor){
+    if(this.router.url === '/actors'){
+      this.findActor(actor);
+    }
+  }
+
+  findActor(actor: string){
+    console.log("findActor");
   }
 
 }

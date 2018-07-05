@@ -13,7 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule, MatProgressSpinnerModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   imports: [
@@ -30,7 +31,10 @@ import { FormsModule } from '@angular/forms';
     MatCardModule,
     MatGridListModule,
     MatTabsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     SearchComponent
@@ -50,7 +54,9 @@ import { FormsModule } from '@angular/forms';
     MatCardModule,
     MatGridListModule,
     MatTabsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

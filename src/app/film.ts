@@ -1,6 +1,6 @@
 export class Film {
   title : string;
-  releaseDate : string;
+  releaseDate : object;
   voteAverage : number;
   overview : string;
   poster : string;

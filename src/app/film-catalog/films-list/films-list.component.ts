@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, ViewChildren, QueryList, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, ViewChildren, QueryList, Input, SimpleChanges } from '@angular/core';
 //import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { FilmService } from '../film.service';
 import { Film } from '../../film';
@@ -16,14 +16,13 @@ import { SearchComponent } from '../../search/search.component';
 })
 export class FilmsListComponent implements OnInit {
 
+  @ViewChild(SearchComponent) searchComp: SearchComponent;
   currentPage : number = 1;
   films : Film[] = [];
-  searchedValue: string;
+  filmsCopy : Film[] = [];
   activeSpinner : boolean = true;
   selectedOption: any = "Фильмы";
-  // @Input() searchValue: string;
-  searchValue:string; 
-  
+
   Options = [
     { description: 'Фильмы' },
     { description: 'Актеры' }
@@ -33,7 +32,6 @@ export class FilmsListComponent implements OnInit {
   }
 
   ngOnInit() { 
-    console.log("ngOnInit");
     this.filmsService.getPopularFilms(this.currentPage).subscribe(
       (filmList: any) => {
         this.initFilms(filmList); 
@@ -43,15 +41,13 @@ export class FilmsListComponent implements OnInit {
       })
     }
 
-  ngOnChanges(){
-    console.log(this.searchValue);
-  }
-
-  initFilms(films):void{
+  initFilms(films):void {
+    let releaseDateTemp : [string, string, string];
     films.results.forEach(film => {
+      releaseDateTemp = film.release_date.split('-');
       this.films.push({
         title: film.title,
-        releaseDate: film.release_date,
+        releaseDate: {"year": releaseDateTemp[0],"month": releaseDateTemp[1], "day": releaseDateTemp[2]},
         voteAverage: film.vote_average,
         overview: film.overview,
         poster: `${this.filmsService.midImgPath}${film['poster_path']}`
@@ -61,7 +57,7 @@ export class FilmsListComponent implements OnInit {
     console.log(this.films);
   }
 
-  getCards():void{
+  getCards():void {
     if(this.selectedOption === "Фильмы"){
       this.changeLinkFilms();
     }else if(this.selectedOption === "Актеры"){
@@ -69,15 +65,15 @@ export class FilmsListComponent implements OnInit {
     }
   }
 
-  changeLinkFilms():void{
+  changeLinkFilms():void {
     this.router.navigate(['/films']);
   }
 
-  changeLinkActors():void{
+  changeLinkActors():void {
     this.router.navigate(['/actors']);
   }
 
-  getNextPage():void{
+  getNextPage():void {
     this.currentPage++;
     this.filmsService.getPopularFilms(this.currentPage).subscribe(
       (filmList: any) => {
@@ -86,6 +82,24 @@ export class FilmsListComponent implements OnInit {
       err => {
         console.log("error");
       })
+  }
+
+  checkSearchValue(searchValue){
+    if(this.router.url === '/films'){
+      this.findFilm(searchValue);
+    }
+  }
+
+  findFilm(searchValue: string){
+    console.log("findFilm");
+    let pattern = new RegExp('^' + searchValue);
+    this.filmsCopy = this.films.slice();
+    let found =  this.films.filter((film)=>{
+      console.log(pattern.test(film['name']));
+      return (pattern.test(film['name']));
+    });
+    this.films = found;
+  //  console.log(this.films);
   }
 
   // checkInput($event) {
