@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ActorsComponent implements OnInit {
 
+  searchedValue: any;
   currentPage : number = 1;
   actors : Actor[] = [];
   selectedOption: any = "Актеры";
@@ -22,6 +23,10 @@ export class ActorsComponent implements OnInit {
   constructor(public actorService: ActorService, public router: Router) { }
 
   ngOnInit() {
+    this.getDataFromService();
+  }
+
+  getDataFromService(){
     this.actorService.getActors(this.currentPage).subscribe(
       (actorsList: any) => {
         this.initActors(actorsList);
@@ -45,13 +50,8 @@ export class ActorsComponent implements OnInit {
   }
 
   getNextPage(){
-    this.actorService.getActors(++this.currentPage).subscribe(
-      (actorsList: any) => {
-        this.initActors(actorsList);
-      },
-      err => {
-        console.log("error");
-      })
+    this.currentPage++;
+    this.getDataFromService();
   }
 
   getCards(){
@@ -70,14 +70,26 @@ export class ActorsComponent implements OnInit {
     this.router.navigate(['/actors']);
   }
 
-  checkSearchValue(actor){
-    if(this.router.url === '/actors'){
-      this.findActor(actor);
+  checkSearchValue(searchValue){
+    this.searchedValue = searchValue;
+    if(this.router.url === '/actors' && searchValue!=''){
+      this.findActor(searchValue);
+    } else if(searchValue === ''){
+      console.log("searchValue empty");
+      this.actors = [];
+      this.currentPage = 1;
+      this.getDataFromService();
     }
   }
 
-  findActor(actor: string){
-    console.log("findActor");
+  findActor(searchValue: string){
+    let pattern = new RegExp('^' + searchValue);
+    let found =  this.actors.filter((actor)=>{
+      return (pattern.test(actor['name']));
+    });
+    if(found){
+      this.actors = found;
+    }
   }
-
+  
 }

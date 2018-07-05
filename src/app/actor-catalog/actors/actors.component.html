@@ -32,4 +32,4 @@
   </div>
 </div> 
 
-<button class="more_button" mat-button (click)="getNextPage()">Показать ещё <mat-icon class="more_button-item">add</mat-icon></button> 
+<button [ngClass]="{'invisible' : searchedValue}" class="more_button" mat-button (click)="getNextPage()">Показать ещё <mat-icon class="more_button-item">add</mat-icon></button> 

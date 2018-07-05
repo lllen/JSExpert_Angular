@@ -38,4 +38,8 @@
     left: 45%;
     margin-top: 15%;
   }
+
+  .invisible{
+    display: none;  
+  }
   

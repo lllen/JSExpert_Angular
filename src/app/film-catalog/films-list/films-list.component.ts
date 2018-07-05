@@ -16,10 +16,10 @@ import { SearchComponent } from '../../search/search.component';
 })
 export class FilmsListComponent implements OnInit {
 
+  searchedValue: string;
   @ViewChild(SearchComponent) searchComp: SearchComponent;
   currentPage : number = 1;
   films : Film[] = [];
-  filmsCopy : Film[] = [];
   activeSpinner : boolean = true;
   selectedOption: any = "Фильмы";
 
@@ -32,6 +32,10 @@ export class FilmsListComponent implements OnInit {
   }
 
   ngOnInit() { 
+    this.getDataFromService();
+  }
+
+  getDataFromService(){
     this.filmsService.getPopularFilms(this.currentPage).subscribe(
       (filmList: any) => {
         this.initFilms(filmList); 
@@ -39,7 +43,7 @@ export class FilmsListComponent implements OnInit {
       err => {
         console.log("error");
       })
-    }
+  }
 
   initFilms(films):void {
     let releaseDateTemp : [string, string, string];
@@ -54,7 +58,6 @@ export class FilmsListComponent implements OnInit {
       });
     });
     this.activeSpinner = false;
-    console.log(this.films);
   }
 
   getCards():void {
@@ -75,31 +78,29 @@ export class FilmsListComponent implements OnInit {
 
   getNextPage():void {
     this.currentPage++;
-    this.filmsService.getPopularFilms(this.currentPage).subscribe(
-      (filmList: any) => {
-        this.initFilms(filmList);
-      },
-      err => {
-        console.log("error");
-      })
+    this.getDataFromService();
   }
 
   checkSearchValue(searchValue){
-    if(this.router.url === '/films'){
+    this.searchedValue = searchValue;
+    if(this.router.url === '/films' && searchValue!=''){
       this.findFilm(searchValue);
+    } else if(searchValue === ''){
+      console.log("searchValue empty");
+      this.films = [];
+       this.currentPage = 1;
+      this.getDataFromService();
     }
   }
 
   findFilm(searchValue: string){
-    console.log("findFilm");
     let pattern = new RegExp('^' + searchValue);
-    this.filmsCopy = this.films.slice();
     let found =  this.films.filter((film)=>{
-      console.log(pattern.test(film['name']));
-      return (pattern.test(film['name']));
+      return (pattern.test(film['title']));
     });
-    this.films = found;
-  //  console.log(this.films);
+    if(found){
+      this.films = found;
+    }
   }
 
   // checkInput($event) {
