@@ -6,14 +6,15 @@ import { element } from 'protractor';
 import { Router }  from '@angular/router';
 import { Options } from 'selenium-webdriver/safari';
 import { SearchComponent } from '../../search/search.component';
-
-
+import { FavoriteService } from '../favorite.service';
+import { Favorite } from '../../favorite';
 
 @Component({
   selector: 'films',
   templateUrl: './films-list.component.html',
   styleUrls: ['./films-list.component.css']
 })
+
 export class FilmsListComponent implements OnInit {
 
   searchedValue: string;
@@ -22,20 +23,24 @@ export class FilmsListComponent implements OnInit {
   films : Film[] = [];
   activeSpinner : boolean = true;
   selectedOption: any = "Фильмы";
+  favoriteList;
 
   Options = [
     { description: 'Фильмы' },
     { description: 'Актеры' }
   ];
 
-  constructor(public filmsService: FilmService,  public router: Router) { 
+  constructor(
+    public filmsService: FilmService,  
+    public router: Router, 
+    private favoriteService: FavoriteService) { 
   }
 
   ngOnInit() { 
     this.getDataFromService();
   }
 
-  getDataFromService(){
+  getDataFromService() {
     this.filmsService.getPopularFilms(this.currentPage).subscribe(
       (filmList: any) => {
         this.initFilms(filmList); 
@@ -50,20 +55,24 @@ export class FilmsListComponent implements OnInit {
     films.results.forEach(film => {
       releaseDateTemp = film.release_date.split('-');
       this.films.push({
+        id: film.id,
         title: film.title,
         releaseDate: {"year": releaseDateTemp[0],"month": releaseDateTemp[1], "day": releaseDateTemp[2]},
         voteAverage: film.vote_average,
         overview: film.overview,
-        poster: `${this.filmsService.midImgPath}${film['poster_path']}`
+        poster: `${this.filmsService.midImgPath}${film['poster_path']}`,
+        isFavorite: false
       });
     });
     this.activeSpinner = false;
+    this.buildFavorites();
+    // console.log(this.films);
   }
 
   getCards():void {
-    if(this.selectedOption === "Фильмы"){
+    if(this.selectedOption === "Фильмы") {
       this.changeLinkFilms();
-    }else if(this.selectedOption === "Актеры"){
+    }else if(this.selectedOption === "Актеры") {
       this.changeLinkActors();
     }
   }
@@ -81,11 +90,11 @@ export class FilmsListComponent implements OnInit {
     this.getDataFromService();
   }
 
-  checkSearchValue(searchValue){
+  checkSearchValue(searchValue) {
     this.searchedValue = searchValue;
-    if(this.router.url === '/films' && searchValue!=''){
+    if(this.router.url === '/films' && searchValue!='') {
       this.findFilm(searchValue);
-    } else if(searchValue === ''){
+    } else if(searchValue === '') {
       console.log("searchValue empty");
       this.films = [];
        this.currentPage = 1;
@@ -93,15 +102,33 @@ export class FilmsListComponent implements OnInit {
     }
   }
 
-  findFilm(searchValue: string){
+  findFilm(searchValue: string) {
     let pattern = new RegExp('^' + searchValue);
-    let found =  this.films.filter((film)=>{
+    let found =  this.films.filter((film) => {
       return (pattern.test(film['title']));
     });
     if(found){
       this.films = found;
     }
   }
+
+  buildFavorites() {
+    this.favoriteService.getFavorites(this.films.map(film => film.id)).subscribe((favorites: Array<Favorite>) => {
+      console.log(favorites);
+      const favoriteList = favorites.map(favorite => favorite.id);
+    
+      this.films.map(film => {
+        film.isFavorite = favoriteList.indexOf(film.id) > -1;
+      })
+    });
+  }
+
+  setFavoriteFilm($event){
+    if($event['isFavorite'])  this.favoriteService.addToFavorites($event['filmId']);
+    else this.favoriteService.deleteFromFavorites($event['filmId']);
+  this.buildFavorites();
+  }
+
 
   // checkInput($event) {
     //   if($event.length > 3) {
