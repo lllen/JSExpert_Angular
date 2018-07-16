@@ -1,3 +1,3 @@
 export class Favorite {
-    id : number
+    _id : number
 }

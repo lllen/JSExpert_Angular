@@ -17,7 +17,7 @@ export class FavoriteService {
     }
 
     addToFavorites(id: number){
-        return this.http.post(`${this.apiUrl}/films/favorites`, id);    
+        return this.http.post(`${this.apiUrl}/films/favorites`, {filmId: id});
     }
 
     deleteFromFavorites(id: number){

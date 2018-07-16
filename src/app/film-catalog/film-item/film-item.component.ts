@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Film } from '../../film';
+import { stat } from 'fs';
 
 @Component({
   selector: 'film-item',
@@ -20,24 +21,14 @@ export class FilmItemComponent implements OnInit {
   }
 
   isFavorite(){
-    return this.film['isFavorite'] ? true : false;
+    this.film.isFavorite ? this.icon = "favorite" : this.icon = "favorite_border";
+    return this.film.isFavorite;
   }
 
   setAsFavorite(){
     let status;
-    if(!this.film['isFavorite']){
-      this.film['isFavorite'] = true;
-      this.icon = "favorite"
-      status = {"filmId": this.film.id, "isFavorite":  this.film['isFavorite']};
-      this.favorite.emit(status);
-    } else{
-      this.film['isFavorite'] = false;
-      this.icon = "favorite_border"
-      status = {"filmId": this.film.id, "isFavorite":  this.film['isFavorite']};
-      this.favorite.emit(status);
-    }
+    this.film.isFavorite = !this.film.isFavorite;
+    status = {"filmId": this.film.id, "isFavorite":  this.film.isFavorite};
+    this.favorite.emit(status);
   }
-
- 
-
 }

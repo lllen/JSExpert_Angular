@@ -64,9 +64,8 @@ export class FilmsListComponent implements OnInit {
         isFavorite: false
       });
     });
-    this.activeSpinner = false;
     this.buildFavorites();
-    // console.log(this.films);
+    this.activeSpinner = false;
   }
 
   getCards():void {
@@ -114,19 +113,28 @@ export class FilmsListComponent implements OnInit {
 
   buildFavorites() {
     this.favoriteService.getFavorites(this.films.map(film => film.id)).subscribe((favorites: Array<Favorite>) => {
-      console.log(favorites);
-      const favoriteList = favorites.map(favorite => favorite.id);
-    
+      const favoriteList = favorites.map(favorite => favorite._id);
       this.films.map(film => {
-        film.isFavorite = favoriteList.indexOf(film.id) > -1;
+        film.isFavorite = favoriteList.includes(film.id);
       })
     });
   }
 
   setFavoriteFilm($event){
-    if($event['isFavorite'])  this.favoriteService.addToFavorites($event['filmId']);
-    else this.favoriteService.deleteFromFavorites($event['filmId']);
-  this.buildFavorites();
+    if($event['isFavorite']) {
+      this.favoriteService.addToFavorites($event['filmId'])
+    .subscribe(() => {
+        this.buildFavorites();
+    });
+  } 
+  
+  else {
+    this.favoriteService.deleteFromFavorites($event['filmId'])
+    .subscribe(() => {
+      console.log("delete");
+      this.buildFavorites();
+    });
+  } 
   }
 
 
