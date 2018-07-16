@@ -5,19 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FilmCatalogModule } from './film-catalog/film-catalog.module';
 import { ActorCatalogModule } from './actor-catalog/actor-catalog.module';
-
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatSelectModule} from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material';
 import { SearchComponent } from './search/search.component';
-import { SearchModule } from './search/search.module';
 import { SharedModule } from './shared/shared.module';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule, MatProgressSpinnerModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,15 +30,11 @@ import { SharedModule } from './shared/shared.module';
     FilmCatalogModule,
     ActorCatalogModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
 

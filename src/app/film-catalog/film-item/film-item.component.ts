@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Film } from '../../film';
+import { stat } from 'fs';
 
 @Component({
   selector: 'film-item',
@@ -8,8 +10,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class FilmItemComponent implements OnInit {
 
   isPressed: boolean;
+  icon: string = "favorite_border";
   value: boolean;
-  @Input('filmInfo') film: object;
+  @Input('filmInfo') film: Film;
   @Output() favorite = new EventEmitter<boolean>();
 
   constructor() { }
@@ -18,19 +21,14 @@ export class FilmItemComponent implements OnInit {
   }
 
   isFavorite(){
-    return this.film['isFavorite'] ? true : false;
+    this.film.isFavorite ? this.icon = "favorite" : this.icon = "favorite_border";
+    return this.film.isFavorite;
   }
 
   setAsFavorite(){
-    if(!this.film['isFavorite']){
-      this.film['isFavorite'] = true;
-      this.favorite.emit(true);
-    } else{
-      this.film['isFavorite'] = false;
-      this.favorite.emit(true);
-    }
+    let status;
+    this.film.isFavorite = !this.film.isFavorite;
+    status = {"filmId": this.film.id, "isFavorite":  this.film.isFavorite};
+    this.favorite.emit(status);
   }
-
- 
-
 }

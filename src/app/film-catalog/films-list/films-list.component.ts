@@ -1,79 +1,140 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, ViewChildren, QueryList, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, ViewChildren, QueryList, Input, SimpleChanges } from '@angular/core';
 //import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { FilmService } from '../film.service';
 import { Film } from '../../film';
 import { element } from 'protractor';
 import { Router }  from '@angular/router';
 import { Options } from 'selenium-webdriver/safari';
+import { SearchComponent } from '../../search/search.component';
+import { FavoriteService } from '../favorite.service';
+import { Favorite } from '../../favorite';
 
 @Component({
   selector: 'films',
   templateUrl: './films-list.component.html',
   styleUrls: ['./films-list.component.css']
 })
+
 export class FilmsListComponent implements OnInit {
 
+  searchedValue: string;
+  @ViewChild(SearchComponent) searchComp: SearchComponent;
   currentPage : number = 1;
   films : Film[] = [];
-  searchedValue: string;
+  activeSpinner : boolean = true;
   selectedOption: any = "Фильмы";
+  favoriteList;
 
   Options = [
     { description: 'Фильмы' },
     { description: 'Актеры' }
   ];
 
-  constructor(public filmsService: FilmService,  public router: Router) { 
+  constructor(
+    public filmsService: FilmService,  
+    public router: Router, 
+    private favoriteService: FavoriteService) { 
   }
 
   ngOnInit() { 
+    this.getDataFromService();
+  }
+
+  getDataFromService() {
     this.filmsService.getPopularFilms(this.currentPage).subscribe(
       (filmList: any) => {
-        this.initFilms(filmList);
+        this.initFilms(filmList); 
       },
       err => {
         console.log("error");
       })
-    }
-
-  initFilms(films){
-    films.results.forEach(film => {
-      this.films.push({
-        title: film.title,
-        releaseDate: film.release_date,
-        voteAverage: film.vote_average,
-        overview: film.overview,
-        poster: `${this.filmsService.midImgPath}${film['poster_path']}`
-      });
-    });
-    console.log(this.films);
   }
 
-  getCards(){
-    if(this.selectedOption === "Фильмы"){
+  initFilms(films):void {
+    let releaseDateTemp : [string, string, string];
+    films.results.forEach(film => {
+      releaseDateTemp = film.release_date.split('-');
+      this.films.push({
+        id: film.id,
+        title: film.title,
+        releaseDate: {"year": releaseDateTemp[0],"month": releaseDateTemp[1], "day": releaseDateTemp[2]},
+        voteAverage: film.vote_average,
+        overview: film.overview,
+        poster: `${this.filmsService.midImgPath}${film['poster_path']}`,
+        isFavorite: false
+      });
+    });
+    this.buildFavorites();
+    this.activeSpinner = false;
+  }
+
+  getCards():void {
+    if(this.selectedOption === "Фильмы") {
       this.changeLinkFilms();
-    }else if(this.selectedOption === "Актеры"){
+    }else if(this.selectedOption === "Актеры") {
       this.changeLinkActors();
     }
   }
 
-  changeLinkFilms(){
+  changeLinkFilms():void {
     this.router.navigate(['/films']);
   }
 
-  changeLinkActors(){
+  changeLinkActors():void {
     this.router.navigate(['/actors']);
   }
 
-  getNextPage(){
+  getNextPage():void {
     this.currentPage++;
-    this.filmsService.getPopularFilms(this.currentPage).subscribe(
-      (filmList: any) => {
-        this.initFilms(filmList);
-      },
-      err => {
-        console.log("error");
+    this.getDataFromService();
+  }
+
+  checkSearchValue(searchValue) {
+    this.searchedValue = searchValue;
+    if(this.router.url === '/films' && searchValue!='') {
+      this.findFilm(searchValue);
+    } else if(searchValue === '') {
+      console.log("searchValue empty");
+      this.films = [];
+       this.currentPage = 1;
+      this.getDataFromService();
+    }
+  }
+
+  findFilm(searchValue: string) {
+    let pattern = new RegExp('^' + searchValue);
+    let found =  this.films.filter((film) => {
+      return (pattern.test(film['title']));
+    });
+    if(found){
+      this.films = found;
+    }
+  }
+
+  buildFavorites() {
+    this.favoriteService.getFavorites(this.films.map(film => film.id)).subscribe((favorites: Array<Favorite>) => {
+      const favoriteList = favorites.map(favorite => favorite._id);
+      this.films.map(film => {
+        film.isFavorite = favoriteList.includes(film.id);
       })
+    });
+  }
+
+  setFavoriteFilm($event){
+    if($event['isFavorite']) {
+      this.favoriteService.addToFavorites($event['filmId'])
+    .subscribe(() => {
+        this.buildFavorites();
+    });
+  } 
+  
+  else {
+    this.favoriteService.deleteFromFavorites($event['filmId'])
+    .subscribe(() => {
+      console.log("delete");
+      this.buildFavorites();
+    });
+  } 
   }
 
 

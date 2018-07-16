@@ -11,17 +11,25 @@
               </mat-select>
             </mat-form-field>
           </div>
-      </mat-toolbar-row>
+          <app-search (search)="checkSearchValue($event)"></app-search>
+      </mat-toolbar-row> 
   </mat-toolbar>
 </mat-card>
 
+<mat-spinner class="spinner-position" *ngIf="activeSpinner"></mat-spinner>
 
-<mat-grid-list cols="4" rowHeight="700px">
+<!-- <mat-grid-list cols="4" rowHeight="700px">
   <div *ngFor="let actor of actors">
       <mat-grid-tile  class="card"  colspan="1">
         <actor-card [actorInfo]="actor"  (favorite)="setFavoriteActor($event)"></actor-card>
       </mat-grid-tile>
   </div>
-</mat-grid-list> 
+</mat-grid-list>  -->
 
-<button class="more_button" mat-button (click)="getNextPage()">Показать ещё <mat-icon class="more_button-item">add</mat-icon></button> 
+<div class="actor-card">
+  <div *ngFor="let actor of actors">
+        <actor-card [actorInfo]="actor"  (favorite)="setFavoriteActor($event)"></actor-card>
+  </div>
+</div> 
+
+<button [ngClass]="{'invisible' : searchedValue}" class="more_button" mat-button (click)="getNextPage()">Показать ещё <mat-icon class="more_button-item">add</mat-icon></button> 

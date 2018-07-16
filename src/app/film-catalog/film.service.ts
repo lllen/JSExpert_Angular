@@ -23,11 +23,13 @@ export class FilmService {
     private http: HttpClient
   ) {}
 
+  getAllFilms(){
+    return this.http.get(`${this.movieUrl}/popular?page=${this.params}`);
+  }
+
   getPopularFilms (page?: number) {
     return this.http.get(`${this.movieUrl}/popular?page=${page}${this.params}`);
   }
-
-
 
 
  // films = [
@@ -67,13 +69,7 @@ export class FilmService {
   //   return this.films;
   // }
 
-  // findFilm(searchedValue){
-  //   let pattern = new RegExp('^' + searchedValue);
-  //   let found =  this.films.filter((film)=>{
-  //     return (pattern.test(film['name']));
-  //   });
-  //   return found;
-  // }
+ 
 
   // countFavorites(){
   //   let n: number = 0;

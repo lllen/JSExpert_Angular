@@ -1,6 +1,9 @@
 
- .card {
+ .actor-card {
     display: flex;   
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2% 2% 2% 2%;
   }
   
   .menu-card {
@@ -30,3 +33,13 @@
     margin-top: 5%;
     margin-bottom: 5%;
   }
+
+  .spinner-position{
+    left: 45%;
+    margin-top: 15%;
+  }
+
+  .invisible{
+    display: none;  
+  }
+  

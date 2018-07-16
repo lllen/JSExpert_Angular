@@ -9,21 +9,48 @@
 }
 
 .card-title{
-  font-size: 3vh;
+  font-size: 20px;
   white-space: nowrap; 
-  width: 250px; 
+  width: 200px; 
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .card-navigation{
+  display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
 
 .red{
-  background-color: #ef4f4f;
+  color: #ef4f4f;
 }
 
- 
-  
-  
+.example-header-image {
+  background-image: url('https://cdn0.iconfinder.com/data/icons/multimedia-and-electronics/512/clapboard_clapper_cinema_movie_film_production_clap_video_action_play_cinematography_studio_industry_hollywood_premiere_flat_design_icon-512.png');
+  /* background-image: url('https://cdn3.iconfinder.com/data/icons/education-flat-circle-with-shadow-vol-4/150/production__settings__cinema__film__hollywood__direction__manufacture-512.png'); */
+  background-size: cover;
+  margin-bottom: 5%;
+}
+
+.fav-button_position{
+  margin-top: 2%;
+}
+
+.popularity-card{
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 65%;
+  right: 0%;
+  background: black;
+  padding: 6px;
+  color: #f3f78f;
+  opacity: 0.8;
+}
+
+.text-size{
+  font-weight: 600;
+  margin-top: 4%;
+  margin-left: 3%;
+}
