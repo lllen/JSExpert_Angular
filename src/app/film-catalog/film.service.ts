@@ -27,10 +27,13 @@ export class FilmService {
     return this.http.get(`${this.movieUrl}/popular?page=${this.params}`);
   }
 
-  getPopularFilms (page?: number) {
+  getPopularFilms(page?: number) {
     return this.http.get(`${this.movieUrl}/popular?page=${page}${this.params}`);
   }
 
+  searchFilm(searchedFilm: string) {
+    return this.http.get(`${this.apiUrl}/search/movie?api_key=${this.apiKey}&language=ru-RU&query=${searchedFilm}&page=1&include_adult=false`);
+  }
 
  // films = [
   //   {id: 1, name: "Тор: Рагнарёк", year: "2017",isFavorite: false, imgUrl: "https://image.tmdb.org/t/p/w300_and_h450_bestv2/2NEzIdBAgm4kSYXF4OH86qs3a0u.jpg", description: "Вернувшись в Асгард в поисках таинственного врага, ведущего охоту на Камни Бесконечности, Тор обнаруживает, что действия его брата Локи, захватившего трон Асгарда, привели к приближению наиболее страшного события — Рагнарёка."},

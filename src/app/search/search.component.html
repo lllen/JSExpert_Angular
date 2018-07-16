@@ -2,8 +2,6 @@
 <div class="search-position">
   <mat-form-field appearance="legacy">
     <input matInput [(ngModel)]="searchValue" (keyup.enter)="doSearch()" placeholder="Поиск">
-    <mat-icon matSuffix (click)="activateIcon()">{{icon}}</mat-icon>
+    <mat-icon matSuffix class="cursor" (click)="activateIcon()">{{icon}}</mat-icon>
   </mat-form-field>
 </div>
-
-<!-- [(ngModel)]="searchValue" [searchValue]="searchValue" -->

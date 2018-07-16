@@ -102,13 +102,23 @@ export class FilmsListComponent implements OnInit {
   }
 
   findFilm(searchValue: string) {
-    let pattern = new RegExp('^' + searchValue);
-    let found =  this.films.filter((film) => {
-      return (pattern.test(film['title']));
-    });
-    if(found){
-      this.films = found;
-    }
+    // let pattern = new RegExp('^' + searchValue);
+    // let found =  this.films.filter((film) => {
+    //   return (pattern.test(film['title']));
+    // });
+    // if(found){
+    //   this.films = found;
+    // }
+
+    this.filmsService.searchFilm(this.searchedValue).subscribe(
+      (filmList: any) => {
+        console.log(filmList);
+        this.films = [];
+        this.initFilms(filmList); 
+      },
+      err => {
+        console.log("error");
+      });
   }
 
   buildFavorites() {

@@ -1,4 +1,8 @@
 
-.search-position{
+.search-position {
     margin-left: 75%;
+}
+
+.cursor {
+    cursor: pointer;
 }
