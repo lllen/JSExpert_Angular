@@ -19,6 +19,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule, MatProgressSpinnerModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FilmService } from './film-catalog/film.service';
+import { API_CONFIG, apiConfig } from './api.config';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    FilmService,
+    {provide: API_CONFIG, useValue: apiConfig}
+  ],
   bootstrap: [AppComponent]
 })
 

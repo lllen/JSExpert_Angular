@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, ViewChildren, QueryList, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, ViewChildren, QueryList, Input, SimpleChanges, Inject } from '@angular/core';
 //import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { FilmService } from '../film.service';
 import { Film } from '../../film';
@@ -8,6 +8,8 @@ import { Options } from 'selenium-webdriver/safari';
 import { SearchComponent } from '../../search/search.component';
 import { FavoriteService } from '../favorite.service';
 import { Favorite } from '../../favorite';
+import { Config } from '../../config';
+import { API_CONFIG } from '../../api.config';
 
 @Component({
   selector: 'films',
@@ -33,7 +35,8 @@ export class FilmsListComponent implements OnInit {
   constructor(
     public filmsService: FilmService,  
     public router: Router, 
-    private favoriteService: FavoriteService) { 
+    private favoriteService: FavoriteService,
+    @Inject(API_CONFIG) public apiConfig: Config) { 
   }
 
   ngOnInit() { 
@@ -60,7 +63,7 @@ export class FilmsListComponent implements OnInit {
         releaseDate: {"year": releaseDateTemp[0],"month": releaseDateTemp[1], "day": releaseDateTemp[2]},
         voteAverage: film.vote_average,
         overview: film.overview,
-        poster: `${this.filmsService.midImgPath}${film['poster_path']}`,
+        poster: `${this.apiConfig.midImgPath}${film['poster_path']}`,
         isFavorite: false
       });
     });
@@ -102,14 +105,6 @@ export class FilmsListComponent implements OnInit {
   }
 
   findFilm(searchValue: string) {
-    // let pattern = new RegExp('^' + searchValue);
-    // let found =  this.films.filter((film) => {
-    //   return (pattern.test(film['title']));
-    // });
-    // if(found){
-    //   this.films = found;
-    // }
-
     this.filmsService.searchFilm(this.searchedValue).subscribe(
       (filmList: any) => {
         console.log(filmList);
