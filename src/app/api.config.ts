@@ -15,4 +15,4 @@ export const apiConfig = {
     smallBackPath: `https://image.tmdb.org/t/p/w300`
 };
 
-export const API_CONFIG = new InjectionToken<Config>("qwerty");
+export const API_CONFIG = new InjectionToken<Config>("");

@@ -35,8 +35,7 @@ export class FilmsListComponent implements OnInit {
   constructor(
     public filmsService: FilmService,  
     public router: Router, 
-    private favoriteService: FavoriteService,
-    @Inject(API_CONFIG) public apiConfig: Config) { 
+    private favoriteService: FavoriteService) { 
   }
 
   ngOnInit() { 
@@ -63,7 +62,7 @@ export class FilmsListComponent implements OnInit {
         releaseDate: {"year": releaseDateTemp[0],"month": releaseDateTemp[1], "day": releaseDateTemp[2]},
         voteAverage: film.vote_average,
         overview: film.overview,
-        poster: `${this.apiConfig.midImgPath}${film['poster_path']}`,
+        poster: `${this.filmsService.apiConfig.midImgPath}${film['poster_path']}`,
         isFavorite: false
       });
     });
