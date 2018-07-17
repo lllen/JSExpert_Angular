@@ -35,6 +35,7 @@
 
 .fav-button_position{
   margin-top: 2%;
+  cursor: pointer;
 }
 
 .popularity-card{

@@ -16,16 +16,16 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  doSearch(){
+  doSearch() {
     this.icon = "cancel";
     this.searchValue.length > 3 ?
       this.search.emit(this.searchValue) : this.search.emit('');
   }
 
-  activateIcon(){
-    if(this.icon === 'search' && this.searchValue!=''){
+  activateIcon() {
+    if(this.icon === 'search' && this.searchValue!='') {
       this.doSearch();
-    }else if(this.icon === 'cancel'){
+    } else if(this.icon === 'cancel') {
       this.searchValue = "";
       this.icon = "search";
       this.search.emit('');
