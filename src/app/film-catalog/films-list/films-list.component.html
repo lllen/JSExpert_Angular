@@ -1,7 +1,7 @@
-<mat-card class="menu-card">
+<!-- <mat-card class="menu-card">
     <mat-toolbar class="menu-toolbar">
         <mat-toolbar-row>
-          <!-- <span>В улюблені добавлено {{n}} фільмів</span> -->
+          <span>В улюблені добавлено {{n}} фільмів</span> 
             <div>
               <mat-form-field>
                 <mat-select [(ngModel)]="selectedOption" (selectionChange)="getCards()" placeholder="Отобразить">
@@ -14,18 +14,22 @@
             <app-search (search)="checkSearchValue($event)"></app-search>
         </mat-toolbar-row>
     </mat-toolbar>
-</mat-card>
+</mat-card> -->
 
 
-<!-- <input matInput [(ngModel)]="temp"> -->
+<div class="content-wrapper">
+  
+    <app-search class="search-position" (search)="checkSearchValue($event)"></app-search>
 
-<mat-spinner class="spinner-position" *ngIf="activeSpinner"></mat-spinner>
-
-<div class="film-card">
-  <div *ngFor="let film of films">
-      <film-item [filmInfo]="film"  (favorite)="setFavoriteFilm($event)"></film-item>
-  </div>
+    <div class="center">
+      <mat-spinner *ngIf="activeSpinner"></mat-spinner>
+    </div>
+      
+    <div class="film-card">
+      <div *ngFor="let film of films">
+        <film-item [filmInfo]="film"  (favorite)="setFavoriteFilm($event)"></film-item>
+      </div>
+    </div>
+      
+    <button [ngClass]="{'invisible' : searchedValue}" class="more_button" mat-button (click)="getNextPage()">Показать ещё <mat-icon class="more_button-item">add</mat-icon></button>  
 </div>
-
-<button [ngClass]="{'invisible' : searchedValue}" class="more_button" mat-button (click)="getNextPage()">Показать ещё <mat-icon class="more_button-item">add</mat-icon></button>
-

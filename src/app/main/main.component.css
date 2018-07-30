@@ -1,0 +1,13 @@
+.wrapper{
+    margin: 50px;
+}
+
+.tab-item{
+    padding-top: 5px;
+}
+
+.center {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }

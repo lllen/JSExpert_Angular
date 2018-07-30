@@ -20,17 +20,11 @@ import { API_CONFIG } from '../../api.config';
 export class FilmsListComponent implements OnInit {
 
   searchedValue: string;
-  @ViewChild(SearchComponent) searchComp: SearchComponent;
   currentPage : number = 1;
   films : Film[] = [];
   activeSpinner : boolean = true;
-  selectedOption: any = "Фильмы";
   favoriteList;
 
-  Options = [
-    { description: 'Фильмы' },
-    { description: 'Актеры' }
-  ];
 
   constructor(
     public filmsService: FilmService,  
@@ -68,22 +62,7 @@ export class FilmsListComponent implements OnInit {
     });
     this.buildFavorites();
     this.activeSpinner = false;
-  }
-
-  getCards():void {
-    if(this.selectedOption === "Фильмы") {
-      this.changeLinkFilms();
-    }else if(this.selectedOption === "Актеры") {
-      this.changeLinkActors();
-    }
-  }
-
-  changeLinkFilms():void {
-    this.router.navigate(['/films']);
-  }
-
-  changeLinkActors():void {
-    this.router.navigate(['/actors']);
+    console.log(this.films);
   }
 
   getNextPage():void {
@@ -93,20 +72,18 @@ export class FilmsListComponent implements OnInit {
 
   checkSearchValue(searchValue) {
     this.searchedValue = searchValue;
-    if(this.router.url === '/films' && searchValue!='') {
-      this.findFilm(searchValue);
-    } else if(searchValue === '') {
-      console.log("searchValue empty");
+    if(this.router.url == '/films' && this.searchedValue!='') {
+      this.findFilm();
+    } else if(this.searchedValue == '') {
       this.films = [];
-       this.currentPage = 1;
+      this.currentPage = 1;
       this.getDataFromService();
     }
   }
 
-  findFilm(searchValue: string) {
-    this.filmsService.searchFilm(this.searchedValue).subscribe(
-      (filmList: any) => {
-        console.log(filmList);
+  findFilm() {
+    this.filmsService.searchFilm(this.searchedValue)
+    .subscribe((filmList: any) => {
         this.films = [];
         this.initFilms(filmList); 
       },
@@ -117,6 +94,7 @@ export class FilmsListComponent implements OnInit {
 
   buildFavorites() {
     this.favoriteService.getFavorites(this.films.map(film => film.id)).subscribe((favorites: Array<Favorite>) => {
+      console.log("get");
       const favoriteList = favorites.map(favorite => favorite._id);
       this.films.map(film => {
         film.isFavorite = favoriteList.includes(film.id);
@@ -127,18 +105,17 @@ export class FilmsListComponent implements OnInit {
   setFavoriteFilm($event){
     if($event['isFavorite']) {
       this.favoriteService.addToFavorites($event['filmId'])
-    .subscribe(() => {
+      .subscribe(() => {
+        console.log("post");
         this.buildFavorites();
-    });
-  } 
-  
-  else {
+      });
+    } else {
     this.favoriteService.deleteFromFavorites($event['filmId'])
-    .subscribe(() => {
-      console.log("delete");
-      this.buildFavorites();
-    });
-  } 
+      .subscribe(() => {
+        console.log("delete");
+        this.buildFavorites();
+      });
+    }
   }
 
 

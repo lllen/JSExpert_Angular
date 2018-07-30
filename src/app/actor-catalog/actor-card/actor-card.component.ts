@@ -9,27 +9,11 @@ import { ConstantPool } from '@angular/compiler/src/constant_pool';
 })
 export class ActorCardComponent implements OnInit {
 
-  icon: string = "favorite_border";
   @Input("actorInfo") actor : Actor;
 
   constructor() { }
 
   ngOnInit() {
   }
-
-  isFavorite(){
-    return this.actor['isFavorite'] ? true : false;
-  }
-
-  setAsFavorite(){
-    if(!this.actor['isFavorite']){
-      this.actor['isFavorite'] = true;
-      this.icon = "favorite"
-    } else{
-      this.actor['isFavorite'] = false;
-      this.icon = "favorite_border"
-    }
-  }
-
 
 }
