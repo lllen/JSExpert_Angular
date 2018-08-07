@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FilmService } from '../shared/services/film.service';
 
 @Component({
   selector: 'main',
@@ -8,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class MainComponent implements OnInit {
   pageName: string = "Film Catalog Dashboard";
 
-  constructor() { }
+  constructor(private filmService: FilmService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+   
+   }
+
+
 
 }

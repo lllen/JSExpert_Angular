@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,8 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule, MatProgressSpinnerModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FilmService } from './film-catalog/film.service';
-import { API_CONFIG, apiConfig } from './api.config';
+import { FilmService } from '../app/shared/services/film.service';
+import { API_CONFIG, apiConfig } from '../app/shared/models/api.config';
+import { MainModule } from './main/main.module';
+import { ActorService } from '../app/shared/services/actor.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { API_CONFIG, apiConfig } from './api.config';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MainModule,
     FilmCatalogModule,
     ActorCatalogModule,
     BrowserAnimationsModule,
@@ -36,7 +40,8 @@ import { API_CONFIG, apiConfig } from './api.config';
   ],
   providers: [
     FilmService,
-    {provide: API_CONFIG, useValue: apiConfig}
+    ActorService,
+    { provide: API_CONFIG, useValue: apiConfig }
   ],
   bootstrap: [AppComponent]
 })

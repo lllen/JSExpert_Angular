@@ -1,13 +1,22 @@
 <mat-toolbar class="colored">
     <mat-toolbar-row>
       <span>Film Catalog</span>
+      <div class="menu-buttons">
+        <a mat-button 
+          *ngFor="let link of links" 
+          [routerLink]="link.path" 
+          [routerLinkActive]="link.active"> 
+          <mat-icon class="example-icon">{{link.icon}}</mat-icon>{{link.label}}
+        </a>
+      </div>
       <span class="example-spacer"></span>
-      <a mat-button 
-        *ngFor="let link of links" 
-        [routerLink]="link.path" 
-        [routerLinkActive]="link.active"> 
-        <mat-icon class="example-icon">{{link.icon}}</mat-icon>{{link.label}}
-    </a>
+      <div class="menu-buttons">
+        <a mat-button
+          [routerLink]="authLink.path"
+          [routerLinkActive]="authLink.active">
+          <mat-icon class="example-icon">{{authLink.icon}}</mat-icon>{{authLink.label}}
+        </a>
+      </div>
     </mat-toolbar-row>
   </mat-toolbar>
 

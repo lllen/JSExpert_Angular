@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActorService } from '../actor.service';
+import { ActorService } from '../../shared/services/actor.service';
 import { Actor } from '../../actor';
 import { Router } from '@angular/router';
 
@@ -13,12 +13,7 @@ export class ActorsComponent implements OnInit {
   searchedValue: any;
   currentPage : number = 1;
   actors : Actor[] = [];
-  selectedOption: any = "Актеры";
   activeSpinner: boolean = true;
-  Options = [
-    { description: 'Фильмы' },
-    { description: 'Актеры' }
-  ];
 
   constructor(public actorService: ActorService, public router: Router) { }
 
@@ -42,7 +37,7 @@ export class ActorsComponent implements OnInit {
       this.actors.push({
         name: actor.name,
         popularity: actor.popularity.toFixed(1),
-        image: `${this.actorService.smallImgPath}${actor.profile_path}`
+        image: `${this.actorService.apiConfig.smallImgPath}${actor.profile_path}`
       });
     });
     this.activeSpinner = false;
@@ -54,25 +49,9 @@ export class ActorsComponent implements OnInit {
     this.getDataFromService();
   }
 
-  getCards(){
-    if(this.selectedOption === "Фильмы"){
-      this.changeLinkFilms();
-    }else if(this.selectedOption === "Актеры"){
-      this.changeLinkActors();
-    }
-  }
-
-  changeLinkFilms(){
-    this.router.navigate(['/films']);
-  }
-
-  changeLinkActors(){
-    this.router.navigate(['/actors']);
-  }
-
   checkSearchValue(searchValue){
     this.searchedValue = searchValue;
-    if(this.router.url === '/actors' && searchValue!=''){
+    if(searchValue!=''){
       this.findActor(searchValue);
     } else if(searchValue === ''){
       console.log("searchValue empty");
@@ -83,13 +62,11 @@ export class ActorsComponent implements OnInit {
   }
 
   findActor(searchValue: string){
-    let pattern = new RegExp('^' + searchValue);
-    let found =  this.actors.filter((actor)=>{
-      return (pattern.test(actor['name']));
+    this.actorService.searchActor(this.searchedValue)
+    .subscribe(actors => {
+      this.actors = [];
+      this.initActors(actors);
     });
-    if(found){
-      this.actors = found;
-    }
   }
   
 }

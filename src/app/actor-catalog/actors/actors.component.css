@@ -1,9 +1,12 @@
 
+.content-wrapper {
+  margin: 2%;
+}
+
  .actor-card {
     display: flex;   
     flex-wrap: wrap;
     justify-content: center;
-    margin: 2% 2% 2% 2%;
   }
   
   .menu-card {
@@ -34,10 +37,17 @@
     margin-bottom: 5%;
   }
 
-  .spinner-position{
-    left: 45%;
-    margin-top: 15%;
+  .center {
+    display: flex;
+    align-content: center;
+    justify-content: center;
   }
+
+  .search-position {
+    display: flex;
+    justify-content: center;
+  }
+
 
   .invisible{
     display: none;  

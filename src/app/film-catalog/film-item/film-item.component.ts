@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Film } from '../../film';
+import { Film } from '../../shared/models/film';
 import { stat } from 'fs';
 
 @Component({

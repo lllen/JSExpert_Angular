@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, ViewChildren, QueryList, Input, SimpleChanges, Inject } from '@angular/core';
 //import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
-import { FilmService } from '../film.service';
-import { Film } from '../../film';
+import { FilmService } from '../../shared/services/film.service';
+import { Film } from '../../shared/models/film';
 import { element } from 'protractor';
 import { Router }  from '@angular/router';
 import { Options } from 'selenium-webdriver/safari';
 import { SearchComponent } from '../../search/search.component';
 import { FavoriteService } from '../favorite.service';
-import { Favorite } from '../../favorite';
-import { Config } from '../../config';
-import { API_CONFIG } from '../../api.config';
+import { Favorite } from '../../shared/models/favorite';
+import { Config } from '../../shared/models/config';
+import { API_CONFIG } from '../../shared/models/api.config';
 
 @Component({
   selector: 'films',
@@ -20,23 +20,16 @@ import { API_CONFIG } from '../../api.config';
 export class FilmsListComponent implements OnInit {
 
   searchedValue: string;
-  @ViewChild(SearchComponent) searchComp: SearchComponent;
   currentPage : number = 1;
   films : Film[] = [];
   activeSpinner : boolean = true;
-  selectedOption: any = "Фильмы";
   favoriteList;
 
-  Options = [
-    { description: 'Фильмы' },
-    { description: 'Актеры' }
-  ];
 
   constructor(
     public filmsService: FilmService,  
     public router: Router, 
-    private favoriteService: FavoriteService,
-    @Inject(API_CONFIG) public apiConfig: Config) { 
+    private favoriteService: FavoriteService) { 
   }
 
   ngOnInit() { 
@@ -63,28 +56,13 @@ export class FilmsListComponent implements OnInit {
         releaseDate: {"year": releaseDateTemp[0],"month": releaseDateTemp[1], "day": releaseDateTemp[2]},
         voteAverage: film.vote_average,
         overview: film.overview,
-        poster: `${this.apiConfig.midImgPath}${film['poster_path']}`,
+        poster: `${this.filmsService.apiConfig.midImgPath}${film['poster_path']}`,
         isFavorite: false
       });
     });
     this.buildFavorites();
     this.activeSpinner = false;
-  }
-
-  getCards():void {
-    if(this.selectedOption === "Фильмы") {
-      this.changeLinkFilms();
-    }else if(this.selectedOption === "Актеры") {
-      this.changeLinkActors();
-    }
-  }
-
-  changeLinkFilms():void {
-    this.router.navigate(['/films']);
-  }
-
-  changeLinkActors():void {
-    this.router.navigate(['/actors']);
+    console.log(this.films);
   }
 
   getNextPage():void {
@@ -94,20 +72,18 @@ export class FilmsListComponent implements OnInit {
 
   checkSearchValue(searchValue) {
     this.searchedValue = searchValue;
-    if(this.router.url === '/films' && searchValue!='') {
-      this.findFilm(searchValue);
-    } else if(searchValue === '') {
-      console.log("searchValue empty");
+    if(this.router.url == '/films' && this.searchedValue!='') {
+      this.findFilm();
+    } else if(this.searchedValue == '') {
       this.films = [];
-       this.currentPage = 1;
+      this.currentPage = 1;
       this.getDataFromService();
     }
   }
 
-  findFilm(searchValue: string) {
-    this.filmsService.searchFilm(this.searchedValue).subscribe(
-      (filmList: any) => {
-        console.log(filmList);
+  findFilm() {
+    this.filmsService.searchFilm(this.searchedValue)
+    .subscribe((filmList: any) => {
         this.films = [];
         this.initFilms(filmList); 
       },
@@ -118,6 +94,7 @@ export class FilmsListComponent implements OnInit {
 
   buildFavorites() {
     this.favoriteService.getFavorites(this.films.map(film => film.id)).subscribe((favorites: Array<Favorite>) => {
+      console.log("get");
       const favoriteList = favorites.map(favorite => favorite._id);
       this.films.map(film => {
         film.isFavorite = favoriteList.includes(film.id);
@@ -128,18 +105,17 @@ export class FilmsListComponent implements OnInit {
   setFavoriteFilm($event){
     if($event['isFavorite']) {
       this.favoriteService.addToFavorites($event['filmId'])
-    .subscribe(() => {
+      .subscribe(() => {
+        console.log("post");
         this.buildFavorites();
-    });
-  } 
-  
-  else {
+      });
+    } else {
     this.favoriteService.deleteFromFavorites($event['filmId'])
-    .subscribe(() => {
-      console.log("delete");
-      this.buildFavorites();
-    });
-  } 
+      .subscribe(() => {
+        console.log("delete");
+        this.buildFavorites();
+      });
+    }
   }
 
 
