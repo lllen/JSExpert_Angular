@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilmService } from '../film-catalog/film.service';
+import { FilmService } from '../shared/services/film.service';
 
 @Component({
   selector: 'main',
@@ -12,7 +12,7 @@ export class MainComponent implements OnInit {
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
-    this.filmService.getNewFilms();
+   
    }
 
 

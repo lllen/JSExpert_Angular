@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input } from '@angular/core';
-import { FilmService } from '../film.service';
+import { FilmService } from '../../shared/services/film.service';
 
 @Component({
   selector: 'details-inner',

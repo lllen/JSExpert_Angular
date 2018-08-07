@@ -1,5 +1,5 @@
 import { InjectionToken } from "@angular/core";
-import { Config } from "../app/config";
+import { Config } from "../models/config";
 
 export const apiConfig: Config = {
     apiUrl: "https://api.themoviedb.org/3",

@@ -2,9 +2,9 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable, Subject, interval, from } from 'rxjs';
 import {map, take, filter} from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { API_CONFIG } from '../api.config';
-import { Favorite } from '../favorite';
-import { Config } from '../config';
+import { API_CONFIG } from '../models/api.config';
+import { Favorite } from '../models/favorite';
+import { Config } from '../models/config';
 
 export class FilmService {
    constructor( 
@@ -27,17 +27,14 @@ export class FilmService {
     return this.http.get(`${this.apiConfig.seacrhMovieUrl}?${this.apiConfig.params}&query=${searchedFilm}&page=1&include_adult=false`);
   }
 
-  getNewFilms() {
-    console.log(this.getPopularFilms(1));
-    (this.getPopularFilms(1))
-    .pipe( 
-      //???????
-    )
-    .subscribe(film => console.log(film));
-  }
-
-
-  
+  // getNewFilms() {
+  //   console.log(this.getPopularFilms(1));
+  //   (this.getPopularFilms(1))
+  //   .pipe( 
+  //     filter(results => { return results; })
+  //   )
+  //   .subscribe(film => console.log(film));
+  // }
   // sort(arr, direct) {
   //   return arr.sort((a,b) => {
   //     let x = a.name.toLowerCase();

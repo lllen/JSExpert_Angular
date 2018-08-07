@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { API_CONFIG } from 'src/app/api.config';
-import { Config } from 'src/app/config';
+import { API_CONFIG } from '../models/api.config';
+import { Config } from '../models/config';
 
 
 export class ActorService {

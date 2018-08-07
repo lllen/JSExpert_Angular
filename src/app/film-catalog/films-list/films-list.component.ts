@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, ViewChildren, QueryList, Input, SimpleChanges, Inject } from '@angular/core';
 //import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
-import { FilmService } from '../film.service';
-import { Film } from '../../film';
+import { FilmService } from '../../shared/services/film.service';
+import { Film } from '../../shared/models/film';
 import { element } from 'protractor';
 import { Router }  from '@angular/router';
 import { Options } from 'selenium-webdriver/safari';
 import { SearchComponent } from '../../search/search.component';
 import { FavoriteService } from '../favorite.service';
-import { Favorite } from '../../favorite';
-import { Config } from '../../config';
-import { API_CONFIG } from '../../api.config';
+import { Favorite } from '../../shared/models/favorite';
+import { Config } from '../../shared/models/config';
+import { API_CONFIG } from '../../shared/models/api.config';
 
 @Component({
   selector: 'films',
