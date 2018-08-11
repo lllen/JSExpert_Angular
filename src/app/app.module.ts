@@ -24,10 +24,15 @@ import { FilmService } from '../app/shared/services/film.service';
 import { API_CONFIG, apiConfig } from '../app/shared/models/api.config';
 import { MainModule } from './main/main.module';
 import { ActorService } from '../app/shared/services/actor.service';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthService } from './shared/services/auth.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +46,7 @@ import { ActorService } from '../app/shared/services/actor.service';
   providers: [
     FilmService,
     ActorService,
+    AuthService,
     { provide: API_CONFIG, useValue: apiConfig }
   ],
   bootstrap: [AppComponent]

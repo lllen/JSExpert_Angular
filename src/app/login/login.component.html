@@ -1,0 +1,22 @@
+<div class="login-wrapper">
+  <form class="login" (ngSubmit)="login()">
+
+      <mat-form-field class="full-width">
+        <input matInput 
+          placeholder="Имя пользователя"
+          type="text"
+          [(ngModel)]="credentials.username"
+        >
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput 
+          placeholder="Пароль"
+          type="password"
+          [(ngModel)]="credentials.password"
+        >
+      </mat-form-field>
+
+      <button mat-button type="submit" class="btn btn-primary">Войти</button>
+  </form>
+</div>
