@@ -23,20 +23,17 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/films']);
     }
   }
-  
+
   login() {
     this.errorMessage = '';
 
     this.authService.login(this.credentials.username, this.credentials.password)
       .subscribe(
         () => {
-          setTimeout(() => {
-            this.router.navigate(['/films']);
-          }, 2000);
+          this.router.navigate(['/films']);
         },
         err => {
           this.errorMessage = err.error.error;
-          
         }
       );
   }

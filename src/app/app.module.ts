@@ -27,6 +27,7 @@ import { ActorService } from '../app/shared/services/actor.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './shared/services/auth.service';
+import { AuthGuard } from './shared/guards/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -38,8 +39,8 @@ import { AuthService } from './shared/services/auth.service';
     BrowserModule,
     AppRoutingModule,
     MainModule,
-    FilmCatalogModule,
     ActorCatalogModule,
+    FilmCatalogModule,
     BrowserAnimationsModule,
     SharedModule
   ],
@@ -47,6 +48,7 @@ import { AuthService } from './shared/services/auth.service';
     FilmService,
     ActorService,
     AuthService,
+    AuthGuard,
     { provide: API_CONFIG, useValue: apiConfig }
   ],
   bootstrap: [AppComponent]
