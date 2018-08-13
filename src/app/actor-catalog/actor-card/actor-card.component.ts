@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Actor } from '../../actor';
+import { Actor } from '../../shared/models/actor';
 import { ConstantPool } from '@angular/compiler/src/constant_pool';
 
 @Component({

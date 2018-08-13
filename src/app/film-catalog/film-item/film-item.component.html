@@ -1,16 +1,18 @@
 <mat-card  class="card-item"> 
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title class="card-title">{{film.title}}</mat-card-title>
-    <mat-card-subtitle>{{film.releaseDate["year"]}}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="{{film.poster}}" alt="{{film.title}}" class="card-img-item">
-  <div class="popularity-card"><mat-icon class="icon-size">grade</mat-icon><span class="text-size">{{film.voteAverage}}</span></div>
-  <mat-card-content>
-    <details-inner [filmDescription]="film.overview"></details-inner>
-  </mat-card-content>
+  <a [routerLink]="['/films', film.id]">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title class="card-title">{{film.title}}</mat-card-title>
+      <mat-card-subtitle>{{film.releaseDate["year"]}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{film.poster}}" alt="{{film.title}}" class="card-img-item">
+    <div class="popularity-card"><mat-icon class="icon-size">grade</mat-icon><span class="text-size">{{film.voteAverage}}</span></div>
+    <mat-card-content>
+      <details-inner [filmDescription]="film.overview"></details-inner>
+    </mat-card-content>
+  </a>
   <mat-card-actions class="card-navigation">
-      <button mat-button>Открыть</button>
-      <mat-icon class="fav-button_position" [ngClass]="{'red' : isFavorite()}" (click)="setAsFavorite()">{{icon}}</mat-icon>
-    </mat-card-actions>
+    <button [routerLink]="['/films', film.id]" mat-button>Открыть</button>
+    <mat-icon class="fav-button_position" [ngClass]="{'red' : isFavorite()}" (click)="setAsFavorite()">{{icon}}</mat-icon>
+  </mat-card-actions>
 </mat-card>

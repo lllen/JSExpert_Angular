@@ -11,13 +11,8 @@ import { FilmCatalogComponent } from './film-catalog/film-catalog.component';
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "main" }, 
   { path: "main", component: MainComponent },
-
-  { path: "actors",
-    component:  ActorsComponent,
-    canActivate: [AuthGuard] 
-  },
   { path: "login", component: LoginComponent },
-  { path: "register", component:RegisterComponent }
+  { path: "register", component: RegisterComponent }
 ];
 
 @NgModule({

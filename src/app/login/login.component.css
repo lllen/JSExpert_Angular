@@ -12,3 +12,8 @@ form {
     margin-left: 35%;
     padding: 25px;
   }
+
+  .error {
+    font-size: 11px;
+    color: red;
+  }

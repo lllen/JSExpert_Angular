@@ -27,7 +27,9 @@
       
     <div class="film-card">
       <div *ngFor="let film of films">
-        <film-item [filmInfo]="film"  (favorite)="setFavoriteFilm($event)"></film-item>
+     
+          <film-item [filmInfo]="film" (favorite)="setFavoriteFilm($event)"></film-item>
+        
       </div>
     </div>
       

@@ -1,21 +1,28 @@
 <div class="login-wrapper">
-  <form class="login" (ngSubmit)="login()">
+  <form class="login" [formGroup]="userForm" (ngSubmit)="login()">
     
+      <span *ngIf="formErrors.userName" class="error">
+        {{ formErrors.userName }}
+      </span>
       <mat-form-field class="full-width">
         <input matInput 
+          formControlName="userName"
           placeholder="Имя пользователя"
           type="text"
           name="username"
-          [(ngModel)]="credentials.username"
         >
       </mat-form-field>
-
+      <br>
+      
+      <span *ngIf="formErrors.password" class="error">
+        {{ formErrors['password'] }}
+      </span>
       <mat-form-field class="full-width">
         <input matInput 
+          formControlName="password"
           placeholder="Пароль"
           type="password"
           name="password"
-          [(ngModel)]="credentials.password"
         >
       </mat-form-field>
 

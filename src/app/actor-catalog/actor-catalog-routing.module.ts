@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FilmsListComponent } from './films-list/films-list.component';
-import { FilmCatalogComponent } from './film-catalog.component';
+import { ActorCatalogComponent } from './actor-catalog.component';
 import { AuthGuard } from '../shared/guards/auth-guard.service';
-import { FilmSingleComponent } from './film-single/film-single.component';
+import { ActorsComponent } from './actors/actors.component';
+import { ActorSingleComponent } from './actor-single/actor-single.component';
 
 const routes: Routes = [
-    { path: 'films', component: FilmCatalogComponent,
+    { path: 'actors', component: ActorCatalogComponent,
       canActivate: [AuthGuard],
       children: [
        { 
           path: '',
-          component: FilmsListComponent 
+          component: ActorsComponent 
        },
        {
           path: ':id',
-          component: FilmSingleComponent
+          component: ActorSingleComponent
         }
     ]}
 ];
@@ -29,5 +29,5 @@ const routes: Routes = [
     ]
   })
 
-  export class FilmCatalogRoutingModule {
+  export class ActorCatalogRoutingModule {
   }
