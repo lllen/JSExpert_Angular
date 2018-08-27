@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       "required": "Обязательное поле.",
       "minlength": "Значение должно быть не менее 4х символов.",
       "maxlength": "Значение не должно быть больше 15 символов.",
-      "pattern": "Не правильный формат email адреса."
+      "pattern": "Не правильный формат пароля."
     }
   }
 
@@ -49,15 +49,11 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.errorMessage = '';
-    if(this.userForm.status!=='INVALID') {
-      console.log(this.userForm.value['userName']);
+    if(this.userForm.status==='VALID') {
       this.authService.login(this.userForm.value['userName'], this.userForm.value['password'])
       .subscribe(
         () => {
           this.router.navigate(['/films']);
-        },
-        err => {
-          this.errorMessage = err.error.error;
         }
       );
     }
@@ -74,14 +70,14 @@ export class LoginComponent implements OnInit {
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(25),
-        //more
+        Validators.pattern("[a-zA-Z]+") ///? 
       ]]
     });
     this.userForm.valueChanges.subscribe(data => this.onValueChange());
   }
 
   onValueChange() {
-    if (!this.userForm) return;
+    //if (!this.userForm) return;  /// ?
 
     for (let item in this.formErrors) {
         this.formErrors[item] = "";
