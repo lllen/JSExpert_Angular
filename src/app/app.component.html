@@ -3,19 +3,30 @@
       <span>Film Catalog</span>
       <div class="menu-buttons">
         <a mat-button 
-          *ngFor="let link of links" 
-          [routerLink]="link.path" 
-          [routerLinkActive]="link.active"> 
-          <mat-icon class="example-icon">{{link.icon}}</mat-icon>{{link.label}}
+          routerLink="main" 
+          routerLinkActive = "button-active"> 
+          <mat-icon class="example-icon">home</mat-icon>Главная
         </a>
+      </div>
+      <div *ngIf="isLoggedIn">
+          <a mat-button 
+            *ngFor="let link of links" 
+            [routerLink]="link.path" 
+            [routerLinkActive]="link.active"> 
+            <mat-icon class="example-icon">{{link.icon}}</mat-icon>{{link.label}}
+          </a>
       </div>
       <span class="example-spacer"></span>
       <div class="menu-buttons">
         <a mat-button
-          [routerLink]="authLink.path"
-          [routerLinkActive]="authLink.active">
-          <mat-icon class="example-icon">{{authLink.icon}}</mat-icon>{{authLink.label}}
-        </a>
+          *ngIf="!isLoggedIn"
+          routerLink = "login"
+          routerLinkActive = "button-active">
+          <mat-icon class="example-icon">perm_identity</mat-icon>Вход</a>
+        <a mat-button
+          *ngIf="isLoggedIn"
+          (click)="logOut()">
+          <mat-icon class="example-icon">perm_identity</mat-icon>Выход</a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>

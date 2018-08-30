@@ -6,11 +6,14 @@
     flex: 1 1 auto;
 }
 
-.colored{
+.colored {
     background-color: #3d3e3f;
     color: white;
 }
 
 .menu-buttons a {
     margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    
 }

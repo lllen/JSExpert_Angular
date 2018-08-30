@@ -1,0 +1,19 @@
+form {
+    min-width: 150px;
+    max-width: 350px;
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+
+  .login-wrapper {
+    margin-left: 35%;
+    padding: 25px;
+  }
+
+  .error {
+    font-size: 11px;
+    color: red;
+  }

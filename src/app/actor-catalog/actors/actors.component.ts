@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActorService } from '../../shared/services/actor.service';
-import { Actor } from '../../actor';
+import { Actor } from '../../shared/models/actor';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,6 +35,7 @@ export class ActorsComponent implements OnInit {
     console.log(actorsList);
     actorsList.results.forEach(actor => {
       this.actors.push({
+        id: actor.id,
         name: actor.name,
         popularity: actor.popularity.toFixed(1),
         image: `${this.actorService.apiConfig.smallImgPath}${actor.profile_path}`

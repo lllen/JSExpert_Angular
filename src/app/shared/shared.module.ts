@@ -15,12 +15,12 @@ import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { FilmCatalogComponent } from '../film-catalog/film-catalog.component';
 
 @NgModule({
   imports: [
     CommonModule,
     MatIconModule,
-    MatButtonModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -43,7 +43,6 @@ import { BrowserModule } from '@angular/platform-browser';
     SearchComponent,
     FormsModule,
     MatIconModule,
-    MatButtonModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
