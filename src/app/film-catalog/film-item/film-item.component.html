@@ -13,6 +13,6 @@
   </a>
   <mat-card-actions class="card-navigation">
     <button [routerLink]="['/films', film.id]" mat-button>Открыть</button>
-    <mat-icon class="fav-button_position" [ngClass]="{'red' : isFavorite()}" (click)="setAsFavorite()">{{icon}}</mat-icon>
+    <mat-icon class="fav-button_position" (click)="setAsFavorite()">{{icon}}</mat-icon>
   </mat-card-actions>
 </mat-card>

@@ -15,3 +15,7 @@ a {
     text-decoration-line: none;
     color: initial;
 }
+
+.container {
+    margin: 15%;
+}

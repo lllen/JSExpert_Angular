@@ -13,22 +13,22 @@ export class FilmItemComponent implements OnInit {
   icon: string = "favorite_border";
   value: boolean;
   @Input('filmInfo') film: Film;
-  @Output() favorite = new EventEmitter<boolean>();
+  //@Output() favorite = new EventEmitter<boolean>();
 
   constructor() { }
 
   ngOnInit() {
   }
-
-  isFavorite(){
-    this.film.isFavorite ? this.icon = "favorite" : this.icon = "favorite_border";
-    return this.film.isFavorite;
-  }
-
-  setAsFavorite(){
-    let status;
-    this.film.isFavorite = !this.film.isFavorite;
-    status = {"filmId": this.film.id, "isFavorite":  this.film.isFavorite};
-    this.favorite.emit(status);
-  }
 }
+//   isFavorite(){
+//     this.film.isFavorite ? this.icon = "favorite" : this.icon = "favorite_border";
+//     return this.film.isFavorite;
+//   }
+
+//   setAsFavorite(){
+//     let status;
+//     this.film.isFavorite = !this.film.isFavorite;
+//     status = {"filmId": this.film.id, "isFavorite":  this.film.isFavorite};
+//     this.favorite.emit(status);
+//   }
+// }

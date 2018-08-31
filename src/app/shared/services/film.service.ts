@@ -15,6 +15,10 @@ export class FilmService {
   ngOnInit() {
   }
 
+  getFilmById(id) {
+    return this.http.get(`${this.apiConfig.apiUrl}/movie/${id}?${this.apiConfig.params}`);
+  }
+
   getAllFilms() {
    return this.http.get(`${this.apiConfig.movieUrl}/popular?page=${this.apiConfig.params}`);
   }

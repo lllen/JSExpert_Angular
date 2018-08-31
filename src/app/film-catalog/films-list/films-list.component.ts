@@ -60,9 +60,8 @@ export class FilmsListComponent implements OnInit {
         isFavorite: false
       });
     });
-    this.buildFavorites();
+    //this.buildFavorites();
     this.activeSpinner = false;
-    console.log(this.films);
   }
 
   getNextPage():void {
@@ -92,31 +91,31 @@ export class FilmsListComponent implements OnInit {
       });
   }
 
-  buildFavorites() {
-    this.favoriteService.getFavorites(this.films.map(film => film.id)).subscribe((favorites: Array<Favorite>) => {
-      console.log("get");
-      const favoriteList = favorites.map(favorite => favorite._id);
-      this.films.map(film => {
-        film.isFavorite = favoriteList.includes(film.id);
-      })
-    });
-  }
+  // buildFavorites() {
+  //   this.favoriteService.getFavorites(this.films.map(film => film.id)).subscribe((favorites: Array<Favorite>) => {
+  //     console.log("get");
+  //     const favoriteList = favorites.map(favorite => favorite._id);
+  //     this.films.map(film => {
+  //       film.isFavorite = favoriteList.includes(film.id);
+  //     })
+  //   });
+  // }
 
-  setFavoriteFilm($event){
-    if($event['isFavorite']) {
-      this.favoriteService.addToFavorites($event['filmId'])
-      .subscribe(() => {
-        console.log("post");
-        this.buildFavorites();
-      });
-    } else {
-    this.favoriteService.deleteFromFavorites($event['filmId'])
-      .subscribe(() => {
-        console.log("delete");
-        this.buildFavorites();
-      });
-    }
-  }
+  // setFavoriteFilm($event){
+  //   if($event['isFavorite']) {
+  //     this.favoriteService.addToFavorites($event['filmId'])
+  //     .subscribe(() => {
+  //       console.log("post");
+  //       this.buildFavorites();
+  //     });
+  //   } else {
+  //   this.favoriteService.deleteFromFavorites($event['filmId'])
+  //     .subscribe(() => {
+  //       console.log("delete");
+  //       this.buildFavorites();
+  //     });
+  //   }
+  // }
 
 
   // checkInput($event) {
